@@ -2,9 +2,8 @@ package com.iprogrammerr.mvp.template
 
 import android.content.Context
 import android.support.v4.app.Fragment
-import com.iprogrammerr.mvp.template.example.Presenters
 
-abstract class BaseFragment<Presenter>(private val presenterFactory: () -> Presenter) : Fragment() {
+abstract class BaseFragment<P : Any>(private val presenterFactory: () -> P) : Fragment() {
 
     protected lateinit var activity: BaseActivity
 
