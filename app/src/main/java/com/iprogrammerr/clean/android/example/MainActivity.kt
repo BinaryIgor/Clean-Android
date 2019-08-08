@@ -1,8 +1,8 @@
-package com.iprogrammerr.mvp.template.example
+package com.iprogrammerr.clean.android.example
 
 import android.os.Bundle
-import com.iprogrammerr.mvp.template.BaseActivity
-import com.iprogrammerr.mvp.template.R
+import com.iprogrammerr.clean.android.BaseActivity
+import com.iprogrammerr.clean.android.R
 
 class MainActivity : BaseActivity(R.id.fragment) {
 

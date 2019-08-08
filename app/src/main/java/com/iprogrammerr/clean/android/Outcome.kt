@@ -1,4 +1,4 @@
-package com.iprogrammerr.mvp.template
+package com.iprogrammerr.clean.android
 
 class Outcome<T> private constructor(private val value: T?, private val exception: String?) {
 

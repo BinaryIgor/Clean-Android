@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MvpTemplate</string>
+    <string name="app_name">CleanAndroid</string>
     <string name="details">Details</string>
     <string name="refresh">Refresh</string>
     <string name="dialog">Dialog</string>

@@ -1,4 +1,4 @@
-package com.iprogrammerr.mvp.template
+package com.iprogrammerr.clean.android
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver

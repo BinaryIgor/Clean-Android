@@ -1,8 +1,8 @@
-package com.iprogrammerr.mvp.template.example
+package com.iprogrammerr.clean.android.example
 
-import com.iprogrammerr.mvp.template.Async
-import com.iprogrammerr.mvp.template.Callback
-import com.iprogrammerr.mvp.template.Outcome
+import com.iprogrammerr.clean.android.Async
+import com.iprogrammerr.clean.android.Callback
+import com.iprogrammerr.clean.android.Outcome
 
 class DefaultMainPresenter(private val async: Async) : MainPresenter {
 

@@ -1,7 +1,7 @@
-package com.iprogrammerr.mvp.template.example
+package com.iprogrammerr.clean.android.example
 
-import com.iprogrammerr.mvp.template.Callback
-import com.iprogrammerr.mvp.template.Outcome
+import com.iprogrammerr.clean.android.Callback
+import com.iprogrammerr.clean.android.Outcome
 
 class DefaultDetailsPresenter : DetailsPresenter {
 

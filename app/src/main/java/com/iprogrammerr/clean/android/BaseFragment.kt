@@ -1,4 +1,4 @@
-package com.iprogrammerr.mvp.template
+package com.iprogrammerr.clean.android
 
 import android.content.Context
 import android.support.v4.app.Fragment

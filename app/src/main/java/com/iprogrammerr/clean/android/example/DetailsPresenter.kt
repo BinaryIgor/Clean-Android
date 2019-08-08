@@ -1,6 +1,6 @@
-package com.iprogrammerr.mvp.template.example
+package com.iprogrammerr.clean.android.example
 
-import com.iprogrammerr.mvp.template.Callback
+import com.iprogrammerr.clean.android.Callback
 
 interface DetailsPresenter {
 

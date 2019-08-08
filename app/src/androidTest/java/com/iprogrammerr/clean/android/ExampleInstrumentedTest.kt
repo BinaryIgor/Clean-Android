@@ -1,4 +1,4 @@
-package com.iprogrammerr.mvp.template
+package com.iprogrammerr.clean.android
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

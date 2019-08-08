@@ -1,4 +1,4 @@
-package com.iprogrammerr.mvp.template.example
+package com.iprogrammerr.clean.android.example
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.widget.Button
-import com.iprogrammerr.mvp.template.R
+import com.iprogrammerr.clean.android.R
 
 class CustomDialogFragment : DialogFragment() {
 
