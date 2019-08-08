@@ -1,7 +1,6 @@
 package com.iprogrammerr.clean.android.example
 
 import android.os.Bundle
-import com.iprogrammerr.clean.android.BaseActivity
 import com.iprogrammerr.clean.android.R
 
 class MainActivity : BaseActivity(R.id.fragment) {

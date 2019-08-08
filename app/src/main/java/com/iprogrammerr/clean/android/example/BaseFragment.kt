@@ -1,7 +1,8 @@
-package com.iprogrammerr.clean.android
+package com.iprogrammerr.clean.android.example
 
 import android.content.Context
 import android.support.v4.app.Fragment
+import com.iprogrammerr.clean.android.Presenters
 
 abstract class BaseFragment<P>(private val presenterFactory: () -> P) : Fragment() {
 

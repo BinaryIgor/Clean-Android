@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import com.iprogrammerr.clean.android.BaseFragment
 import com.iprogrammerr.clean.android.LifecycleCallback
 import com.iprogrammerr.clean.android.R
 import com.iprogrammerr.clean.android.ThreadPoolAsync

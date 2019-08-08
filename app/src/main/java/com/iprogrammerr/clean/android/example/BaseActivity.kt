@@ -1,4 +1,4 @@
-package com.iprogrammerr.clean.android
+package com.iprogrammerr.clean.android.example
 
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
