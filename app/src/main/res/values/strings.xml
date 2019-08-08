@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MvpTemplate</string>
+    <string name="details">Details</string>
+    <string name="refresh">Refresh</string>
+    <string name="dialog">Dialog</string>
+    <string name="refresh_question">Should we refresh?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 </resources>

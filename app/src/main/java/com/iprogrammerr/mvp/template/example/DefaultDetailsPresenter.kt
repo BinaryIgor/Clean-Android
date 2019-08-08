@@ -5,9 +5,20 @@ import com.iprogrammerr.mvp.template.Outcome
 
 class DefaultDetailsPresenter : DetailsPresenter {
 
-    private val details = "Details[id=${System.currentTimeMillis() % 1000}]"
+    private var details: String? = null
+
+    private fun generateDetails() {
+        details = "Details[id=${System.currentTimeMillis() % 1000}]"
+    }
+
+    override fun refresh() {
+        details = null
+    }
 
     override fun getDetails(callback: Callback<String>) {
-        callback.call(Outcome.success(details))
+        if (details == null) {
+            generateDetails()
+        }
+        callback.call(Outcome.success(details!!))
     }
 }

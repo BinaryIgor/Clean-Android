@@ -3,7 +3,7 @@ package com.iprogrammerr.mvp.template
 import android.content.Context
 import android.support.v4.app.Fragment
 
-abstract class BaseFragment<P : Any>(private val presenterFactory: () -> P) : Fragment() {
+abstract class BaseFragment<P>(private val presenterFactory: () -> P) : Fragment() {
 
     protected lateinit var activity: BaseActivity
 
