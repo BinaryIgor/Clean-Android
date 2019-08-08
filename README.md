@@ -1,7 +1,7 @@
 # Clean Android
-Set of classes for implementing MVP pattern and Clean Architecture on Android. It was created based on growing disappointment from creating Android apps. Its framework make it very hard to come up with any testable architecture. [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) fixed many of this issues, but it also came with new ones. Its ideas also doesn't fit well with MVP architecture, which I think is the best way to separate Android dependent code from pure jvm classes. Using this approach, we can make our framework dependent views passive and put all of our logic(framework independent) into presenters and models, achieving [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
+Set of classes for implementing MVP pattern and Clean Architecture on Android. It was created based on growing disappointment from creating Android apps. Its framework make it very hard to come up with any testable architecture. [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) fixed many of this issues, but also created new ones. Its ideas also doesn't fit well with MVP architecture, which I think is the best way to separate Android dependent code from pure jvm classes. Using this approach, we can make our framework dependent views passive and put all of our logic(framework independent) into presenters and models, achieving [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 ## Presenter
-The most important part here are presenters. It's encouraged to have one to one reliationship between them and Activty/Fragment. Presenter is simply a POJO, that should get data from view and be source of it. At the same time, it should know nothing about a view, nor an Android framework.Creating them using Presenters, gives you a guarantee that they will survive configurations changes.
+The most important part here are presenters. It's encouraged to have one to one reliationship between them and Activty/Fragment. Presenter is simply a POJO, that should get data from view and be source of it. At the same time, it should know nothing about a view, nor an Android framework. Creating them using Presenters, gives you a guarantee that they will survive configurations changes.
 ```kotlin
 package com.iprogrammerr.clean.android
 
@@ -32,7 +32,7 @@ object Presenters {
     fun <P> of(activity: FragmentActivity, factory: () -> P) = of(activity.supportFragmentManager, factory)
 }
 ```
-PresenterHolder is simply Fragment without a view and with retainInstance = true. Exactly the same mechanism is used in android's ViewModels, but it's implementation is much more complex. Usage:
+PresenterHolder is simply a Fragment without a view and with retainInstance = true. Exactly the same mechanism is used in android's ViewModels, but its implementation is much more complex. Usage:
 ```kotlin
 package com.iprogrammerr.clean.android.example
 
@@ -80,7 +80,7 @@ class DetailsFragment : Fragment(), CustomDialogFragment.Listener {
 ```
 
 ## LifecycleCallback
-This component show you have simple it is to have lifecycle aware callbacks.
+This component show you how simple it is to have lifecycle aware callbacks.
 ```kotlin
 package com.iprogrammerr.clean.android
 
@@ -105,19 +105,17 @@ class LifecycleCallback<T>(private val owner: LifecycleOwner, private val callba
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        last?.let {
-            callback(it)
-            owner.lifecycle.removeObserver(this)
-            last = null
-        }
+        last?.let { clear() }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
-        last?.let {
-            owner.lifecycle.removeObserver(this)
-            last = null
-        }
+        last?.let { clear() }
+    }
+
+    private fun clear() {
+        owner.lifecycle.removeObserver(this)
+        last = null
     }
 }
 ```
