@@ -126,11 +126,13 @@ package com.iprogrammerr.clean.android
 class Outcome<T> private constructor(private val value: T?, private val exception: String?) {
 
     companion object {
-
+        @JvmStatic
         fun <T> success(value: T) = Outcome<T>(value, null)
 
+        @JvmStatic
         fun <T> failure(exception: String) = Outcome<T>(null, exception)
 
+        @JvmStatic
         fun <T> failure(exception: () -> String) = Outcome<T>(null, exception())
     }
 
