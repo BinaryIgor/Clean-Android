@@ -1,8 +1,9 @@
 package com.iprogrammerr.clean.android.example
 
+import com.iprogrammerr.clean.android.Async
 import com.iprogrammerr.clean.android.Outcome
 
-class DefaultDetailsPresenter : DetailsPresenter {
+class DefaultDetailsPresenter(private val async: Async) : DetailsPresenter {
 
     private var details: String? = null
 
@@ -14,10 +15,16 @@ class DefaultDetailsPresenter : DetailsPresenter {
         details = null
     }
 
-    override fun getDetails(callback: (Outcome<String>) -> Unit) {
+    override fun getDetails(waitingMsg: String, callback: (Outcome<String>) -> Unit) {
         if (details == null) {
-            generateDetails()
+            callback(Outcome.success(waitingMsg))
+            async.execute({
+                Thread.sleep(100 + (2_000 * Math.random()).toLong())
+                generateDetails()
+                details!!
+            }, callback)
+        } else {
+            callback(Outcome.success(details!!))
         }
-        callback(Outcome.success(details!!))
     }
 }

@@ -105,17 +105,24 @@ class LifecycleCallback<T>(private val owner: LifecycleOwner, private val callba
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        last?.let { clear() }
+        last?.let {
+            callback(it)
+            clear()
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
-        last?.let { clear() }
+        last?.let {
+            clear()
+        }
     }
 
     private fun clear() {
-        owner.lifecycle.removeObserver(this)
-        last = null
+        last?.let {
+            owner.lifecycle.removeObserver(this)
+            last = null
+        }
     }
 }
 ```
@@ -165,7 +172,7 @@ class DefaultMainPresenter(private val async: Async) : MainPresenter {
             callback(Outcome.success(message))
         } else {
             async.execute({
-                Thread.sleep((Math.random() * 5_000).toLong())
+                Thread.sleep((Math.random() * 2_000).toLong())
                 message = "Hello ${System.currentTimeMillis() / 1_000}"
                 message
             }, callback)
@@ -190,6 +197,19 @@ class DefaultMainPresenterTest {
             MatcherAssert.assertThat(o.isSuccess(), Matchers.equalTo(true))
             MatcherAssert.assertThat(o.value(), Matchers.equalTo("Hello ${System.currentTimeMillis() / 1_000}"))
         }
+    }
+
+    @Test
+    fun `returned message is cached`() {
+        val presenter = DefaultMainPresenter(FakeAsync())
+
+        var first = ""
+        presenter.getMainMessage { first = it.value() }
+
+        var second = " "
+        presenter.getMainMessage { second = it.value() }
+
+        MatcherAssert.assertThat(first, Matchers.equalTo(second))
     }
 }
 ```

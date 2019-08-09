@@ -24,5 +24,6 @@ object PresentersFactory {
     fun newMainPresenter(fragment: Fragment) =
         Presenters.of(fragment) { DefaultMainPresenter(getDependency(Async::class.java)) }
 
-    fun newDefaultPresenter(fragment: Fragment) = Presenters.of(fragment) { DefaultDetailsPresenter() }
+    fun newDefaultDetailsPresenter(fragment: Fragment) =
+        Presenters.of(fragment) { DefaultDetailsPresenter(getDependency(Async::class.java)) }
 }

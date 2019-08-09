@@ -15,4 +15,17 @@ class DefaultMainPresenterTest {
             MatcherAssert.assertThat(o.value(), Matchers.equalTo("Hello ${System.currentTimeMillis() / 1_000}"))
         }
     }
+
+    @Test
+    fun `returned message is cached`() {
+        val presenter = DefaultMainPresenter(FakeAsync())
+
+        var first = ""
+        presenter.getMainMessage { first = it.value() }
+
+        var second = " "
+        presenter.getMainMessage { second = it.value() }
+
+        MatcherAssert.assertThat(first, Matchers.equalTo(second))
+    }
 }

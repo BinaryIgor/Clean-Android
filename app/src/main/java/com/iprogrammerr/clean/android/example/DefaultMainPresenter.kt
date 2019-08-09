@@ -12,7 +12,7 @@ class DefaultMainPresenter(private val async: Async) : MainPresenter {
             callback(Outcome.success(message))
         } else {
             async.execute({
-                Thread.sleep((Math.random() * 5_000).toLong())
+                Thread.sleep((Math.random() * 2_000).toLong())
                 message = "Hello ${System.currentTimeMillis() / 1_000}"
                 message
             }, callback)

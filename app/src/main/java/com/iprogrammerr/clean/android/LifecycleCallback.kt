@@ -21,16 +21,23 @@ class LifecycleCallback<T>(private val owner: LifecycleOwner, private val callba
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        last?.let { clear() }
+        last?.let {
+            callback(it)
+            clear()
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
-        last?.let { clear() }
+        last?.let {
+            clear()
+        }
     }
 
     private fun clear() {
-        owner.lifecycle.removeObserver(this)
-        last = null
+        last?.let {
+            owner.lifecycle.removeObserver(this)
+            last = null
+        }
     }
 }

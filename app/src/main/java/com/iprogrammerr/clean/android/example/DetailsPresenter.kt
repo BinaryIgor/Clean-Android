@@ -6,5 +6,5 @@ interface DetailsPresenter {
 
     fun refresh()
 
-    fun getDetails(callback: (Outcome<String>) -> Unit)
+    fun getDetails(waitingMsg: String, callback: (Outcome<String>) -> Unit)
 }
