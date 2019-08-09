@@ -2,9 +2,8 @@ package com.iprogrammerr.clean.android.example
 
 import android.content.Context
 import android.support.v4.app.Fragment
-import com.iprogrammerr.clean.android.Presenters
 
-abstract class BaseFragment<P>(private val presenterFactory: () -> P) : Fragment() {
+abstract class BaseFragment : Fragment() {
 
     protected lateinit var activity: BaseActivity
 
@@ -14,6 +13,4 @@ abstract class BaseFragment<P>(private val presenterFactory: () -> P) : Fragment
             activity = context
         }
     }
-
-    protected fun getPresenter() = Presenters.of(this, presenterFactory)
 }

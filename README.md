@@ -16,7 +16,7 @@ object Presenters {
     @JvmStatic
     fun <P> of(fragment: Fragment, factory: () -> P) = of(fragment.childFragmentManager, factory)
 
-    @Suppress("UNCHECKED_CAST")
+    @Suppress("unchecked_cast")
     private fun <P> of(ownerManager: FragmentManager, factory: () -> P): P {
         val holder = ownerManager.findFragmentByTag(HOLDER_TAG)
         return if (holder is PresenterHolder<*>) {

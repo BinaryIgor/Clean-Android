@@ -8,13 +8,12 @@ import android.widget.Button
 import android.widget.TextView
 import com.iprogrammerr.clean.android.LifecycleCallback
 import com.iprogrammerr.clean.android.R
-import com.iprogrammerr.clean.android.ThreadPoolAsync
 
-class MainFragment : BaseFragment<DefaultMainPresenter>({ DefaultMainPresenter(ThreadPoolAsync()) }) {
+class MainFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_main, container, false)
-        getPresenter().getMainMessage(LifecycleCallback(this) {
+        PresentersFactory.newMainPresenter(this).getMainMessage(LifecycleCallback(this) {
             if (it.isSuccess()) {
                 view.findViewById<TextView>(R.id.message).text = it.value()
             }
