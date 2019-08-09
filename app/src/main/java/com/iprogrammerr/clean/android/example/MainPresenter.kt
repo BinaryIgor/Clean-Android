@@ -1,7 +1,7 @@
 package com.iprogrammerr.clean.android.example
 
-import com.iprogrammerr.clean.android.Callback
+import com.iprogrammerr.clean.android.Outcome
 
 interface MainPresenter {
-    fun getMainMessage(callback: Callback<String>)
+    fun getMainMessage(callback: (Outcome<String>) -> Unit)
 }

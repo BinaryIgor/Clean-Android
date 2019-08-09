@@ -1,6 +1,5 @@
 package com.iprogrammerr.clean.android.example
 
-import com.iprogrammerr.clean.android.Callback
 import com.iprogrammerr.clean.android.Outcome
 
 class DefaultDetailsPresenter : DetailsPresenter {
@@ -15,10 +14,10 @@ class DefaultDetailsPresenter : DetailsPresenter {
         details = null
     }
 
-    override fun getDetails(callback: Callback<String>) {
+    override fun getDetails(callback: (Outcome<String>) -> Unit) {
         if (details == null) {
             generateDetails()
         }
-        callback.call(Outcome.success(details!!))
+        callback(Outcome.success(details!!))
     }
 }

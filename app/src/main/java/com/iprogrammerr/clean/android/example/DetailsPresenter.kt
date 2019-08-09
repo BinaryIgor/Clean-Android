@@ -1,10 +1,10 @@
 package com.iprogrammerr.clean.android.example
 
-import com.iprogrammerr.clean.android.Callback
+import com.iprogrammerr.clean.android.Outcome
 
 interface DetailsPresenter {
 
     fun refresh()
 
-    fun getDetails(callback: Callback<String>)
+    fun getDetails(callback: (Outcome<String>) -> Unit)
 }

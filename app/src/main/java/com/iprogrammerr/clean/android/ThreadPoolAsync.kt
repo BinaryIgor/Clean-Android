@@ -14,14 +14,14 @@ class ThreadPoolAsync(private val executor: Executor, private val main: Handler)
         Handler(Looper.getMainLooper())
     )
 
-    override fun <T> execute(function: () -> T, callback: Callback<T>) {
+    override fun <T> execute(function: () -> T, callback: (Outcome<T>) -> Unit) {
         executor.execute {
             val result = try {
                 Outcome.success(function())
             } catch (e: Exception) {
                 Outcome.failure<T> { e.message?.let { it } ?: "" }
             }
-            main.post { callback.call(result) }
+            main.post { callback(result) }
         }
     }
 }

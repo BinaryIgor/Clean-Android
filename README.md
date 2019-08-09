@@ -89,12 +89,12 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 
-class LifecycleCallback<T>(private val owner: LifecycleOwner, private val callback: (Outcome<T>) -> Unit) : Callback<T>,
-    LifecycleObserver {
+class LifecycleCallback<T>(private val owner: LifecycleOwner, private val callback: (Outcome<T>) -> Unit) :
+    LifecycleObserver, (Outcome<T>) -> Unit {
 
     private var last: Outcome<T>? = null
 
-    override fun call(outcome: Outcome<T>) {
+    override fun invoke(outcome: Outcome<T>) {
         if (owner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
             callback(outcome)
         } else {
@@ -146,5 +146,50 @@ class Outcome<T> private constructor(private val value: T?, private val exceptio
     fun isFailure() = value == null
 
     fun exception() = exception?.let { it } ?: throw Exception("There is no exception, result has a value: $value")
+}
+```
+## Testing
+Thanks to separation of concerns, testing is a breeze.
+```kotlin
+package com.iprogrammerr.clean.android.example
+
+import com.iprogrammerr.clean.android.Async
+import com.iprogrammerr.clean.android.Outcome
+
+class DefaultMainPresenter(private val async: Async) : MainPresenter {
+
+    private lateinit var message: String
+
+    override fun getMainMessage(callback: (Outcome<String>) -> Unit) {
+        if (::message.isInitialized) {
+            callback(Outcome.success(message))
+        } else {
+            async.execute({
+                Thread.sleep((Math.random() * 5_000).toLong())
+                message = "Hello ${System.currentTimeMillis() / 1_000}"
+                message
+            }, callback)
+        }
+    }
+}
+```
+```kotlin
+package com.iprogrammerr.clean.android
+
+import com.iprogrammerr.clean.android.example.DefaultMainPresenter
+import org.hamcrest.MatcherAssert
+import org.hamcrest.Matchers
+import org.junit.Test
+
+class DefaultMainPresenterTest {
+
+    @Test
+    fun `returns message with a current date`() {
+        val presenter = DefaultMainPresenter(FakeAsync())
+        presenter.getMainMessage { o ->
+            MatcherAssert.assertThat(o.isSuccess(), Matchers.equalTo(true))
+            MatcherAssert.assertThat(o.value(), Matchers.equalTo("Hello ${System.currentTimeMillis() / 1_000}"))
+        }
+    }
 }
 ```
