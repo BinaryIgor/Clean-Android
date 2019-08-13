@@ -11,8 +11,8 @@ class DefaultMainPresenterTest {
     fun `returns message with a current date`() {
         val presenter = DefaultMainPresenter(FakeAsync())
         presenter.getMainMessage { o ->
-            MatcherAssert.assertThat(o.isSuccess(), Matchers.equalTo(true))
-            MatcherAssert.assertThat(o.value(), Matchers.equalTo("Hello ${System.currentTimeMillis() / 1_000}"))
+            MatcherAssert.assertThat(o.isSuccess, Matchers.equalTo(true))
+            MatcherAssert.assertThat(o.value, Matchers.equalTo("Hello ${System.currentTimeMillis() / 1_000}"))
         }
     }
 
@@ -21,10 +21,10 @@ class DefaultMainPresenterTest {
         val presenter = DefaultMainPresenter(FakeAsync())
 
         var first = ""
-        presenter.getMainMessage { first = it.value() }
+        presenter.getMainMessage { first = it.value }
 
         var second = " "
-        presenter.getMainMessage { second = it.value() }
+        presenter.getMainMessage { second = it.value }
 
         MatcherAssert.assertThat(first, Matchers.equalTo(second))
     }

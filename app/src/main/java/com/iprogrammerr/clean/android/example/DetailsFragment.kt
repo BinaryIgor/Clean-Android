@@ -21,7 +21,7 @@ class DetailsFragment : Fragment(), CustomDialogFragment.Listener {
         val view = inflater.inflate(R.layout.fragment_details, container, false)
         detailsView = view.findViewById(R.id.details)
         presenter.getDetails(getString(R.string.waiting), LifecycleCallback(this) { o ->
-            detailsView.text = o.value()
+            detailsView.text = o.value
         })
         view.findViewById<Button>(R.id.refresh).setOnClickListener {
             CustomDialogFragment().show(childFragmentManager, "")
@@ -36,7 +36,7 @@ class DetailsFragment : Fragment(), CustomDialogFragment.Listener {
     override fun onYes() {
         presenter.refresh()
         presenter.getDetails(getString(R.string.waiting), LifecycleCallback(this) {
-            detailsView.text = it.value()
+            detailsView.text = it.value
         })
     }
 }

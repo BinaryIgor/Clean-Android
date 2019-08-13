@@ -14,9 +14,9 @@ class DefaultDetailsPresenterTest {
         var waitingCalled = false
         presenter.getDetails(waiting) {
             if (waitingCalled) {
-                MatcherAssert.assertThat(it.value(), Matchers.not(Matchers.equalTo(waiting)))
+                MatcherAssert.assertThat(it.value, Matchers.not(Matchers.equalTo(waiting)))
             } else {
-                MatcherAssert.assertThat(it.value(), Matchers.equalTo(waiting))
+                MatcherAssert.assertThat(it.value, Matchers.equalTo(waiting))
                 waitingCalled = true
             }
         }
@@ -28,12 +28,12 @@ class DefaultDetailsPresenterTest {
         val presenter = DefaultDetailsPresenter(FakeAsync())
 
         var first = ""
-        presenter.getDetails("") { first = it.value() }
+        presenter.getDetails("") { first = it.value }
 
         presenter.refresh()
 
         presenter.getDetails("") { second ->
-            MatcherAssert.assertThat(first, Matchers.not(Matchers.equalTo(second.value())))
+            MatcherAssert.assertThat(first, Matchers.not(Matchers.equalTo(second.value)))
         }
     }
 }
