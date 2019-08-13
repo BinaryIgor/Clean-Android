@@ -134,7 +134,7 @@ class Outcome<T> private constructor(value: T?, exception: String?) {
 
     private val _value = value
     val value: T
-        get() = _exception?.let { throw Exception("Outcome have a exception = $exception") } ?: _value!!
+        get() = _exception?.let { throw Exception("Outcome have an exception = $it") } ?: _value!!
 
     private val _exception = exception
     val exception: String

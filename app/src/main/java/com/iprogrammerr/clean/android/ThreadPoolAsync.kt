@@ -1,27 +1,24 @@
 package com.iprogrammerr.clean.android
 
-import android.os.Handler
-import android.os.Looper
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
-class ThreadPoolAsync(private val executor: Executor, private val main: Handler) : Async {
+class ThreadPoolAsync(
+    private val executor: Executor,
+    private val factory: OutcomeFactory,
+    private val outcomeThread: (result: () -> Unit) -> Unit
+) : Async {
 
-    constructor(executor: Executor) : this(executor, Handler(Looper.getMainLooper()))
-
-    constructor() : this(
+    constructor(factory: OutcomeFactory, outcomeThread: (result: () -> Unit) -> Unit) : this(
         Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2),
-        Handler(Looper.getMainLooper())
+        factory,
+        outcomeThread
     )
 
     override fun <T> execute(function: () -> T, callback: (Outcome<T>) -> Unit) {
         executor.execute {
-            val result = try {
-                Outcome.success(function())
-            } catch (e: Exception) {
-                Outcome.failure<T> { e.message?.let { it } ?: "" }
-            }
-            main.post { callback(result) }
+            val outcome = factory.ofFunction(function)
+            outcomeThread { callback(outcome) }
         }
     }
 }

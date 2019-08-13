@@ -1,12 +1,12 @@
 package com.iprogrammerr.clean.android
 
-class OutcomeFactory(private val errorTranslation: (e: Exception) -> String) {
+class OutcomeFactory(private val exceptionTranslation: (e: Exception) -> String) {
 
     constructor() : this({ e -> e.message?.let { it } ?: "" })
 
-    fun <T> outcomeOfProcess(process: () -> T) = try {
-        Outcome.success(process())
+    fun <T> ofFunction(function: () -> T) = try {
+        Outcome.success(function())
     } catch (e: Exception) {
-        Outcome.failure<T>(errorTranslation(e))
+        Outcome.failure<T>(exceptionTranslation(e))
     }
 }
