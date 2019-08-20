@@ -11,10 +11,6 @@ class DefaultDetailsPresenter(private val async: Async) : DetailsPresenter {
         details = "Details[id=${System.currentTimeMillis() % 1000}]"
     }
 
-    override fun refresh() {
-        details = null
-    }
-
     override fun getDetails(waitingMsg: String, callback: (Outcome<String>) -> Unit) {
         if (details == null) {
             callback(Outcome.success(waitingMsg))
@@ -26,5 +22,10 @@ class DefaultDetailsPresenter(private val async: Async) : DetailsPresenter {
         } else {
             callback(Outcome.success(details!!))
         }
+    }
+
+    override fun refreshClicked(waitingMsg: String, callback: (Outcome<String>) -> Unit) {
+        details = null
+        getDetails(waitingMsg, callback)
     }
 }

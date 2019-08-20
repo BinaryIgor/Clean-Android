@@ -34,8 +34,7 @@ class DetailsFragment : Fragment(), CustomDialogFragment.Listener {
     }
 
     override fun onYes() {
-        presenter.refresh()
-        presenter.getDetails(getString(R.string.waiting), LifecycleCallback(this) {
+        presenter.refreshClicked(getString(R.string.waiting), LifecycleCallback(this) {
             detailsView.text = it.value
         })
     }

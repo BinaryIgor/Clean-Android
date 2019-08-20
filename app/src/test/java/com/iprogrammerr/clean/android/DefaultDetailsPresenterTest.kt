@@ -24,15 +24,13 @@ class DefaultDetailsPresenterTest {
     }
 
     @Test
-    fun `details are refreshed`() {
+    fun `new details are given`() {
         val presenter = DefaultDetailsPresenter(FakeAsync())
 
         var first = ""
         presenter.getDetails("") { first = it.value }
 
-        presenter.refresh()
-
-        presenter.getDetails("") { second ->
+        presenter.refreshClicked("") { second ->
             MatcherAssert.assertThat(first, Matchers.not(Matchers.equalTo(second.value)))
         }
     }
